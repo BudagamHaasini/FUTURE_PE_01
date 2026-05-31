@@ -131,6 +131,6 @@ The framework is reusable and can be adapted for cafes, salons, coaching institu
 
 ### Live Link:
 
-https://app.netlify.com/projects/graceful-cobbler-b0be30
+https://graceful-cobbler-b0be30.netlify.app/
 
 
