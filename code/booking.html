@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Book a Study Slot — WorkBrew Cafe Hyderabad</title>
+<meta name="description" content="Reserve a quiet study slot or coworking seat at WorkBrew Cafe Hyderabad. Real-time slot availability with hourly bookings." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+<header class="sticky top-0 z-50 backdrop-blur-lg" style="background: color-mix(in oklab, var(--bg) 80%, transparent); border-bottom:1px solid var(--border);">
+  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-2 font-display text-xl font-bold"><span class="w-9 h-9 rounded-xl flex items-center justify-center text-white" style="background:linear-gradient(135deg,var(--brand),var(--brand-2))">☕</span>Work<span class="gradient-text">Brew</span></a>
+    <nav class="hidden md:flex items-center gap-7 text-sm font-medium">
+      <a href="index.html" class="nav-link">Home</a><a href="services.html" class="nav-link">Services</a><a href="menu.html" class="nav-link">Menu</a><a href="booking.html" class="nav-link">Book Slot</a><a href="productivity.html" class="nav-link">Productivity Wall</a><a href="contact.html" class="nav-link">Contact</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <button onclick="toggleTheme()" class="w-9 h-9 rounded-lg border" style="border-color:var(--border)"><span data-theme-icon>🌙</span></button>
+      <button class="md:hidden text-2xl" onclick="toggleMenu()">☰</button>
+    </div>
+  </div>
+  <div id="mobile-menu" class="hidden md:hidden border-t px-6 py-4 space-y-3" style="border-color:var(--border)">
+    <a href="index.html" class="block">Home</a><a href="services.html" class="block">Services</a><a href="menu.html" class="block">Menu</a><a href="booking.html" class="block">Book Slot</a><a href="productivity.html" class="block">Productivity Wall</a><a href="contact.html" class="block">Contact</a>
+  </div>
+</header>
+
+<section class="py-14 px-6 text-center">
+  <span class="badge badge-green">Live Availability</span>
+  <h1 class="font-display text-5xl md:text-6xl font-bold mt-3">Book your <span class="gradient-text">focus session</span>.</h1>
+  <p class="mt-4 max-w-2xl mx-auto" style="color:var(--muted)">Choose a 2-hour slot. Green = open seats, Yellow = filling fast, Red = fully reserved.</p>
+  <div class="mt-6 flex justify-center gap-5 text-sm">
+    <span class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-green-500"></span>Available</span>
+    <span class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-yellow-400"></span>Partial</span>
+    <span class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-red-500"></span>Reserved</span>
+  </div>
+</section>
+
+<section class="px-6 pb-14 max-w-7xl mx-auto grid lg:grid-cols-3 gap-6" id="slots"></section>
+
+<section class="px-6 pb-24 max-w-7xl mx-auto">
+  <h2 class="font-display text-3xl font-bold">Currently Reserved</h2>
+  <p style="color:var(--muted)" class="mt-1">Who's deep-working right now.</p>
+  <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-4" id="reserved"></div>
+</section>
+
+<!-- modal -->
+<div id="modal" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-50 p-4">
+  <div class="wb-card p-7 max-w-md w-full">
+    <h3 class="font-display text-2xl font-bold">Confirm Booking</h3>
+    <p style="color:var(--muted)" class="mt-1" id="modal-slot"></p>
+    <div class="mt-5 space-y-3">
+      <input id="b-name" class="wb-input" placeholder="Your name" />
+      <select id="b-dur" class="wb-input">
+        <option>2 Hours</option><option>4 Hours</option><option>6 Hours</option><option>Full Day</option>
+      </select>
+      <input id="b-goal" class="wb-input" placeholder="Your goal (e.g. Prepare for GATE)" />
+    </div>
+    <div class="mt-6 flex gap-3">
+      <button onclick="closeModal()" class="wb-btn wb-btn-outline flex-1">Cancel</button>
+      <button onclick="confirmBooking()" class="wb-btn wb-btn-primary flex-1">Reserve Seat</button>
+    </div>
+  </div>
+</div>
+
+<footer class="px-6 pt-16 pb-10" style="background:#0f0d0b;color:#e8dfd0">
+  <div class="max-w-7xl mx-auto text-center text-sm text-white/60">© <span id="year"></span> WorkBrew Cafe</div>
+</footer>
+
+<script>
+const slots = [
+  {time:'08:00 AM - 10:00 AM', total:20, taken:4},
+  {time:'10:00 AM - 12:00 PM', total:20, taken:12},
+  {time:'12:00 PM - 02:00 PM', total:20, taken:20},
+  {time:'02:00 PM - 04:00 PM', total:20, taken:8},
+  {time:'04:00 PM - 06:00 PM', total:20, taken:17},
+  {time:'06:00 PM - 08:00 PM', total:20, taken:6},
+  {time:'08:00 PM - 10:00 PM', total:20, taken:14},
+  {time:'10:00 PM - 12:00 AM', total:20, taken:2},
+];
+const reserved = [
+  {name:'Rahul', work:'Preparing for GATE CSE', dur:'4 Hours'},
+  {name:'Priya', work:'Software Developer · Remote Work Session', dur:'6 Hours'},
+  {name:'Arjun', work:'UPSC Aspirant', dur:'6 Hours'},
+  {name:'Ananya', work:'CAT 2025 Prep', dur:'3 Hours'},
+  {name:'Vivek', work:'Frontend Project Sprint', dur:'5 Hours'},
+  {name:'Sanjana', work:'GATE ECE Mock Tests', dur:'4 Hours'},
+];
+
+function statusOf(s){
+  const r=s.taken/s.total;
+  if(r>=1) return {cls:'slot-full',badge:'badge-red',label:'Fully Reserved',disabled:true};
+  if(r>=0.6) return {cls:'slot-partial',badge:'badge-yellow',label:'Filling Fast',disabled:false};
+  return {cls:'slot-available',badge:'badge-green',label:'Available',disabled:false};
+}
+document.getElementById('slots').innerHTML = slots.map((s,i)=>{
+  const st=statusOf(s); const left=s.total-s.taken;
+  return `<div class="wb-card p-6 ${st.cls}">
+    <div class="flex justify-between items-start">
+      <div><div class="text-xs font-semibold uppercase tracking-wider" style="color:var(--muted)">Slot</div>
+      <div class="font-display text-xl font-bold mt-1">${s.time}</div></div>
+      <span class="badge ${st.badge}">${st.label}</span>
+    </div>
+    <div class="mt-5 grid grid-cols-2 gap-2 text-sm">
+      <div><div class="font-bold text-2xl">${left}</div><div style="color:var(--muted)">Seats left</div></div>
+      <div><div class="font-bold text-2xl">${s.taken}/${s.total}</div><div style="color:var(--muted)">Reserved</div></div>
+    </div>
+    <div class="mt-3 h-2 rounded-full" style="background:var(--border)">
+      <div class="h-full rounded-full" style="width:${(s.taken/s.total*100).toFixed(0)}%;background:${st.disabled?'#dc2626':(s.taken/s.total>=0.6?'#eab308':'#16a34a')}"></div>
+    </div>
+    <button ${st.disabled?'disabled':''} onclick="openModal(${i})" class="wb-btn ${st.disabled?'wb-btn-outline opacity-50 cursor-not-allowed':'wb-btn-primary'} w-full mt-5 text-sm">${st.disabled?'Fully Booked':'Book Slot →'}</button>
+  </div>`;
+}).join('');
+
+document.getElementById('reserved').innerHTML = reserved.map(r=>`
+  <div class="wb-card p-5">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold" style="background:linear-gradient(135deg,var(--brand),var(--brand-2))">${r.name[0]}</div>
+      <div><div class="font-semibold">${r.name}</div><div class="text-xs" style="color:var(--muted)">${r.dur}</div></div>
+    </div>
+    <p class="mt-3 text-sm" style="color:var(--muted)">🎯 ${r.work}</p>
+  </div>`).join('');
+
+let currentSlot=null;
+function openModal(i){ currentSlot=i; document.getElementById('modal-slot').textContent=slots[i].time; document.getElementById('modal').classList.remove('hidden'); document.getElementById('modal').classList.add('flex'); }
+function closeModal(){ document.getElementById('modal').classList.add('hidden'); document.getElementById('modal').classList.remove('flex'); }
+function confirmBooking(){
+  const n=document.getElementById('b-name').value.trim(); const g=document.getElementById('b-goal').value.trim();
+  if(!n||!g){ alert('Please fill in your name and goal.'); return; }
+  alert(`✓ Reserved ${slots[currentSlot].time} for ${n}. See you soon!`);
+  closeModal();
+}
+</script>
+<script src="assets/js/main.js"></script>
+</body></html>
