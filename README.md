@@ -1,5 +1,14 @@
-# FUTURE_PE_01# 
-AI Website Copy Generator for Local Businesses
+# FUTURE_PE_01 - AI Website Copy Generator for Local Businesses
+
+## Live Demo
+
+🔗 https://graceful-cobbler-b0be30.netlify.app/
+
+## GitHub Repository
+
+🔗 https://github.com/BudagamHaasini/FUTURE_PE_01
+
+---
 
 ## Project Overview
 
@@ -36,7 +45,7 @@ The cafe provides an environment where customers can enjoy food and beverages wh
 
 ## Why This Concept Was Chosen
 
-"The concept was inspired by the growing number of students and remote workers who need a productive environment outside home and college."
+The concept was inspired by the growing number of students and remote workers who need a productive environment outside home and college.
 
 Many students and remote workers struggle to find places that offer:
 
@@ -82,7 +91,7 @@ The prompt system was designed to generate:
 * Workspace booking services
 * Membership options
 
-### 3. Call-To-Action Sections
+### 3. Call-To-Action (CTA) Sections
 
 * Table reservations
 * Study slot bookings
@@ -98,6 +107,31 @@ The prompts can generate content using different tones:
 * Modern
 * Productivity-focused
 
+### 5. SEO Optimization
+
+The SEO framework focuses on:
+
+* Local keyword targeting
+* Meta title generation
+* Meta description generation
+* FAQ generation
+* Local SEO recommendations
+* Search intent optimization
+
+This ensures that the generated content is not only engaging for visitors but also optimized for search engine visibility.
+
+---
+
+## Prompt Engineering Workflow
+
+1. Business Selection
+2. Homepage Copy Generation
+3. Services Page Generation
+4. CTA Generation
+5. SEO Analysis
+6. Website Development
+7. Deployment on Netlify
+
 ---
 
 ## Tools Used
@@ -105,6 +139,7 @@ The prompts can generate content using different tones:
 * ChatGPT
 * GitHub
 * VS Code
+* Netlify
 
 ---
 
@@ -117,7 +152,21 @@ This repository contains:
 * Homepage content
 * Services page content
 * CTA sections
+* SEO analysis
 * Project documentation
+* Live website deployment
+
+---
+
+## Skills Demonstrated
+
+* Prompt Engineering
+* Website Copywriting
+* Local SEO Strategy
+* AI-Assisted Content Generation
+* Git & GitHub
+* Website Deployment
+* Business Problem Solving
 
 ---
 
@@ -126,11 +175,3 @@ This repository contains:
 The final output demonstrates how Prompt Engineering can help local businesses quickly generate professional website content without hiring expensive copywriters.
 
 The framework is reusable and can be adapted for cafes, salons, coaching institutes, clinics, agencies, and other local businesses.
-
----
-
-### Live Link:
-
-https://graceful-cobbler-b0be30.netlify.app/
-
-
